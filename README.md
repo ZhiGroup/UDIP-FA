@@ -1,7 +1,7 @@
 
 
 
-This code is used for the analysis of the paper "Unveiling genetic architecture of white matter microstructure through unsupervised deep representation learning of fractional anisotropy images"
+This code is used for the analysis of the paper "Unveiling genetic architecture of white matter microstructure through unsupervised deep representation learning of fractional anisotropy maps"
 
 <img width="449" height="648" alt="image" src="https://github.com/user-attachments/assets/5c982686-4043-4448-b350-b54dd50b2dc9" />
 
@@ -22,7 +22,7 @@ An R script for the final stage of the analysis, performing network-based analys
 
 
 
-
+##Citation
 Unveiling genetic architecture of white matter microstructure through unsupervised deep representation learning of fractional anisotropy images
 Xingzhong Zhao, Ziqian Xie, Wei He, Myriam Fornage, Degui Zhi
 medRxiv 2025.07.04.25330856; doi: https://doi.org/10.1101/2025.07.04.25330856
