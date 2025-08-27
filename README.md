@@ -22,7 +22,7 @@ An R script for the final stage of the analysis, performing network-based analys
 
 
 
-##Citation
+## Citation
 Unveiling genetic architecture of white matter microstructure through unsupervised deep representation learning of fractional anisotropy images
 Xingzhong Zhao, Ziqian Xie, Wei He, Myriam Fornage, Degui Zhi
 medRxiv 2025.07.04.25330856; doi: https://doi.org/10.1101/2025.07.04.25330856
