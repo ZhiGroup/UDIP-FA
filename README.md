@@ -221,8 +221,8 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 
 ## 💬 Contact
 
-- **Xingzhong Zhao** - [zhao.xingzhong@email.com](mailto:zhao.xingzhong@email.com)
-- **Project Link**: [https://github.com/yourusername/UDIP-FA](https://github.com/yourusername/UDIP-FA)
+- **Xingzhong Zhao** - [xingzhong.zhao@yth.tmc.edu]
+- **Project Link**: [https://github.com/yourusername/UDIP-FA]
 
 ## 🙏 Acknowledgments
 
