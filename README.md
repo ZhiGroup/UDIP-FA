@@ -130,7 +130,8 @@ Advanced network analysis script featuring:
 - Therapeutic target identification
 - Mechanism of action pathway analysis
 
-
+### Model
+The pretrained model can access at this google driver[https://drive.google.com/file/d/1wPO-DoaXAD-kil6FZCNOGuWg9cOX9eql/view?usp=drive_link]
 ## 🔄 Reproducibility
 
 ### Environment Setup
@@ -152,7 +153,7 @@ All analyses use fixed random seeds for reproducibility:
 ### Version Information
 
 The analysis was performed using:
-- Python 3.8.10
+- Python 3.9.10
 - R 4.2.0
 - Key package versions listed in `requirements.txt`
 
