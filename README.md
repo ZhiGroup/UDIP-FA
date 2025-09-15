@@ -1,7 +1,7 @@
 # UDIP-FA: Unsupervised Deep Representation Learning of Fractional Anisotropy Maps
 
 [![DOI](https://img.shields.io/badge/DOI-10.1101%2F2025.07.04.25330856-blue)](https://doi.org/10.1101/2025.07.04.25330856)
-[![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/)
 [![R](https://img.shields.io/badge/R-4.0%2B-blue)](https://www.r-project.org/)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
@@ -15,7 +15,6 @@ This repository contains the complete analysis pipeline for the study "Unveiling
 - [Installation](#installation)
 - [Usage](#usage)
 - [Repository Structure](#repository-structure)
-- [Data Requirements](#data-requirements)
 - [Reproducibility](#reproducibility)
 - [Citation](#citation)
 - [License](#license)
@@ -35,7 +34,7 @@ This study introduces UDIP-FA (Unsupervised Deep Image Phenotyping of Fractional
 
 ### Prerequisites
 
-- Python 3.8 or higher
+- Python 3.9 or higher
 - R 4.0 or higher
 - Git
 
@@ -131,24 +130,6 @@ Advanced network analysis script featuring:
 - Therapeutic target identification
 - Mechanism of action pathway analysis
 
-## 📊 Data Requirements
-
-### Input Data Format
-
-- **FA Maps**: NIfTI format (.nii.gz)
-- **Genetic Data**: PLINK format (.bed/.bim/.fam)
-- **Phenotype Data**: CSV format with standardized column names
-- **Reference Panels**: 1000 Genomes or equivalent for LD calculations
-
-### Expected Directory Structure
-
-```
-data/
-├── fa_maps/           # Individual FA NIfTI files
-├── genetics/          # PLINK genetic files
-├── phenotypes/        # Phenotype CSV files
-└── reference/         # Reference genetic data
-```
 
 ## 🔄 Reproducibility
 
@@ -185,18 +166,6 @@ Running the complete pipeline will generate:
 - **Network Analysis Results**: Gene-drug interaction networks
 - **Statistical Reports**: Comprehensive analysis summaries
 
-## 🧪 Testing
-
-To verify installation and basic functionality:
-
-```bash
-# Test Python environment
-python -c "import pandas, numpy, sklearn; print('Python setup OK')"
-
-# Test R environment
-Rscript -e "library(ggplot2); cat('R setup OK\n')"
-```
-
 ## 📚 Citation
 
 If you use this code in your research, please cite:
@@ -214,10 +183,6 @@ If you use this code in your research, please cite:
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details on how to submit pull requests, report issues, and contribute to the project.
 
 ## 💬 Contact
 
