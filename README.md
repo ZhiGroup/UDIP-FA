@@ -172,7 +172,7 @@ If you use this code in your research, please cite:
 
 ```bibtex
 @article{zhao2025udip,
-  title={Unveiling genetic architecture of white matter microstructure through unsupervised deep representation learning of fractional anisotropy images},
+  title={Unveiling genetic architecture of white matter microstructure through unsupervised deep representation learning of fractional anisotropy maps},
   author={Zhao, Xingzhong and Xie, Ziqian and He, Wei and Fornage, Myriam and Zhi, Degui},
   journal={medRxiv},
   year={2025},
