@@ -1,7 +1,7 @@
 # UDIP-FA: Unsupervised Deep Representation Learning of Fractional Anisotropy Maps
 
 [![DOI](https://img.shields.io/badge/DOI-10.1101%2F2025.07.04.25330856-blue)](https://doi.org/10.1101/2025.07.04.25330856)
-[![Python](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
 [![R](https://img.shields.io/badge/R-4.0%2B-blue)](https://www.r-project.org/)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
@@ -34,7 +34,7 @@ This study introduces UDIP-FA (Unsupervised Deep Image Phenotyping of Fractional
 
 ### Prerequisites
 
-- Python 3.9 or higher
+- Python 3.8 or higher
 - R 4.0 or higher
 - Git
 
@@ -153,7 +153,7 @@ All analyses use fixed random seeds for reproducibility:
 ### Version Information
 
 The analysis was performed using:
-- Python 3.9.10
+- Python 3.8.10
 - R 4.2.0
 - Key package versions listed in `requirements.txt`
 
