@@ -7,8 +7,8 @@
 
 This repository contains the complete analysis pipeline for the study "Unveiling genetic architecture of white matter microstructure through unsupervised deep representation learning of fractional anisotropy maps".
 
+![Figure 1_page-0001](https://github.com/user-attachments/assets/c67188df-1ef7-4a19-b325-6761b5e063d3)
 
-[Figure 1.pdf](https://github.com/user-attachments/files/22548493/Figure.1.pdf)
 
 ## 📋 Table of Contents
 
