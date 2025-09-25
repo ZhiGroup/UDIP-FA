@@ -7,7 +7,8 @@
 
 This repository contains the complete analysis pipeline for the study "Unveiling genetic architecture of white matter microstructure through unsupervised deep representation learning of fractional anisotropy maps".
 
-<img width="449" height="648" alt="UDIP-FA Overview" src="https://github.com/user-attachments/assets/5c982686-4043-4448-b350-b54dd50b2dc9" />
+
+[Figure 1.pdf](https://github.com/user-attachments/files/22548493/Figure.1.pdf)
 
 ## 📋 Table of Contents
 
