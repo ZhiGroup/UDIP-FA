@@ -78,12 +78,12 @@ cd UDIP-FA
 
 2. **Post-GWAS Analysis**:
    ```r
-   Rscript FA_all.R
+    FA_all.R
    ```
 
 3. **Network and Drug Analysis**:
    ```r
-   Rscript FA_network_drug_analysis.R
+  FA_network_drug_analysis.R
    ```
 
 ### Step-by-Step Analysis
