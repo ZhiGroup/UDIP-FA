@@ -185,7 +185,6 @@ If you use this code in your research, please cite:
 ## 💬 Contact
 
 - **Xingzhong Zhao** - [xingzhong.zhao@uth.tmc.edu]
-- **Project Link**: [https://github.com/yourusername/UDIP-FA]
 
 ## 🙏 Acknowledgments
 
