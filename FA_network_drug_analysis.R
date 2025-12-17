@@ -54,7 +54,7 @@ SOX10 <- FA_gene_pos[which(FA_gene_pos$symbol == 'SOX10'), ]
 str_split(SOX10$IndSigSNPs, ';') %>% unlist()
 intersect(str_split(SOX10$IndSigSNPs, ';') %>% unlist(), lead_SNP$rsID)
 write.table(FA_gene_pos$symbol, 'FA_gene_anan.txt', sep = '\t', row.names = FALSE, quote = FALSE)
-
+## 
 TRN_FA <- FA_gene_TRN$whole_net
 FA_lead_SNP <- fread('../FA_5e-8/FUMA_job604167/leadSNPs.txt', data.table = FALSE)
 

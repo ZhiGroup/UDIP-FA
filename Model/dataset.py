@@ -10,7 +10,7 @@ import torch
 transforms_monai = transforms.Compose([transforms.AddChannel(), transforms.ToTensor(),])
 
 class aedataset(torch.utils.data.Dataset):
-    def __init__(self, datafile, modality, transforms):
+    def __init__(self, datafile, modality, transforms=None):
         
         """
         Args:
@@ -23,7 +23,10 @@ class aedataset(torch.utils.data.Dataset):
         """
         self.datafile = pd.read_csv(datafile)
         self.unbiased_brain = self.datafile[modality]
-        self.transforms = transforms
+        if transforms is None:
+            self.transforms = transforms_monai
+        else:
+            self.transforms = transforms
 
     def __len__(self):
         return len(self.unbiased_brain)
