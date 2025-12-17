@@ -7,6 +7,8 @@
 
 This repository contains the complete analysis pipeline for the study **"Unveiling genetic architecture of white matter microstructure through unsupervised deep representation learning of fractional anisotropy maps"**.
 
+![Figure 1_page-0001](https://github.com/user-attachments/assets/c67188df-1ef7-4a19-b325-6761b5e063d3)
+
 ## 📋 Table of Contents
 
 - [Overview](#overview)
@@ -17,6 +19,7 @@ This repository contains the complete analysis pipeline for the study **"Unveili
   - [Training](#training)
   - [Inference](#inference)
   - [Analysis](#analysis)
+- [GWAS & Post-Analysis](#gwas--post-analysis)
 - [Reproducibility](#reproducibility)
 - [Citation](#citation)
 - [Contact](#contact)
@@ -129,6 +132,29 @@ python Model/model_compare.py
 This script includes functions to:
 1. Plot significant SNPs across different thresholds.
 2. Compute and visualize pairwise correlations (CCA, Pearson) between feature sets.
+
+## 🧬 GWAS & Post-Analysis
+
+The repository includes comprehensive scripts for the genetic analysis stages:
+
+### `FA_GWAS_all.ipynb`
+This Jupyter notebook serves as the main entry point for the genetic analysis, covering:
+- **UDIP-FA feature association analyses**: Correlating deep learning features with genetic variants.
+- **Polygenic Risk Score (PRS)** associations: Investigating links between learned features and brain disorders.
+- **Model Explainability**: Interpretability assessments of the autoencoder features.
+- **Comparative Analysis**: Benchmarking against previous white matter studies.
+
+### `FA_all.R`
+R script dedicated to post-GWAS statistical processing:
+- **Result Aggregation**: Filtering and summarizing GWAS statistics.
+- **Figure Generation**: Producing publication-ready plots (Manhattan plots, QQ plots).
+- **Meta-analysis**: Effect size calculations and statistical validation.
+
+### `FA_network_drug_analysis.R`
+Advanced network analysis for biological insights:
+- **Gene-Drug Interaction**: Constructing networks to identify potential drug targets.
+- **Therapeutic Targets**: Highlighting genes actionable by existing drugs.
+- **Mechanism of Action**: Pathway analysis to understand underlying biological mechanisms.
 
 ## 🔄 Reproducibility
 
