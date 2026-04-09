@@ -438,7 +438,7 @@ plot_celltype_enrichment <- function(cell_file, output_file = "celltype_enrichme
   ggsave(output_file, p, width = 12, height = 6)
 }
 # FA meta mvGWAS analysis #
-view_4ch_function<-plot_function_enrichment('./FA_meta_5e-8/magma.gsa.sets.genes.out',output_file ='4ch_functional_enrichment.pdf')
+view_FA_function<-plot_function_enrichment('./FA_meta_5e-8/magma.gsa.sets.genes.out',output_file ='4ch_functional_enrichment.pdf')
 plot_disease_enrichment('./heart_function.txt',output_file ='4ch_phenotype_enrichment.pdf' )
 plot_tissue_enrichment('./FA_meta_5e-8/magma_exp_bs_age_avg_log2RPKM.gsa.out',output_file ='4ch_tissue_enrichment.pdf' )
 plot_celltype_enrichment('./4ch_3D_GAN_heart_cell/magma_celltype_step1.txt',output_file ='4ch_cell_type_enrichment.pdf' )
