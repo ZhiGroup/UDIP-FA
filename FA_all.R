@@ -1,20 +1,50 @@
-## 
-library(dplyr)
-library(data.table)
-library(stringi)
-library(stringr)
-library(dplyr)
-library(stringi)
-library(stringr)
-library(data.table)
-library(ggplot2)
-library(ggpubr)
-library(CMplot)
-library(org.Hs.eg.db)
-library(grid)
-library(VennDiagram)
-library(GenomicRanges)
-library(Gviz)
+required_packages <- c(
+  "dplyr",
+  "data.table",
+  "stringi",
+  "stringr",
+  "ggplot2",
+  "ggpubr",
+  "CMplot",
+  "org.Hs.eg.db",
+  "grid",
+  "VennDiagram",
+  "GenomicRanges",
+  "Gviz"
+)
+
+load_required_packages <- function(packages) {
+  missing_packages <- packages[!vapply(packages, requireNamespace, logical(1), quietly = TRUE)]
+  if (length(missing_packages) > 0) {
+    stop(
+      "Missing required R packages: ",
+      paste(missing_packages, collapse = ", "),
+      call. = FALSE
+    )
+  }
+
+  invisible(lapply(packages, library, character.only = TRUE))
+}
+
+read_table_checked <- function(path, ..., data.table = FALSE) {
+  if (!file.exists(path)) {
+    stop("Required input file not found: ", path, call. = FALSE)
+  }
+  fread(path, ..., data.table = data.table)
+}
+
+require_columns <- function(data, columns, object_name) {
+  missing_columns <- setdiff(columns, colnames(data))
+  if (length(missing_columns) > 0) {
+    stop(
+      object_name, " is missing required columns: ",
+      paste(missing_columns, collapse = ", "),
+      call. = FALSE
+    )
+  }
+}
+
+load_required_packages(required_packages)
 #' Plot a genomic region on ideogram and axis using Gviz
 #'
 #' @param chr Chromosome number or name (e.g., "7")
@@ -118,13 +148,16 @@ fisherVennPlot <- function(set1, set2, background,
 plot_heart_manhattan<-function(heart_gwas,annotation_dir,save_name){
   #annotation_dir<-'./4ch_3Duin'
   #heart_gwas<-'HEART_4ich_inputation_3Duin.txt'
-  heat_file<-fread(heart_gwas,data.table = FALSE)
+  heat_file<-read_table_checked(heart_gwas,data.table = FALSE)
+  require_columns(heat_file, c("POS", "P"), "heart_gwas")
   heat_file$BP<-heat_file$POS
-  lead_snp<-fread(paste(annotation_dir,'/leadSNPs.txt',sep = ""),data.table = FALSE)
+  lead_snp<-read_table_checked(file.path(annotation_dir, "leadSNPs.txt"),data.table = FALSE)
+  require_columns(lead_snp, c("p", "rsID"), "lead_snp")
   lead_snp<-lead_snp[order(lead_snp$p),]
   lead_snp<-lead_snp[1:30,]
   ##
-  gene_SNP<-fread(paste(annotation_dir,'/snps.txt',sep = ""),data.table = FALSE)
+  gene_SNP<-read_table_checked(file.path(annotation_dir, "snps.txt"),data.table = FALSE)
+  require_columns(gene_SNP, c("rsID", "nearestGene"), "gene_SNP")
   gene_SNP<-gene_SNP[!duplicated(gene_SNP$rsID),]
   rownames(gene_SNP)<-gene_SNP$rsID
   gene_SNP<-gene_SNP[lead_snp$rsID,]
@@ -224,7 +257,7 @@ get_unique_loci <- function(big40, my_file, p_thresh = -log10(5e-8 / nrow(big40)
   # Load summary statistics
   #big40<-FA_big40
   buffer <- 125000
- # myres<-lead_SNP_all_meta
+  myres <- if (is.character(my_file)) read_table_checked(my_file, data.table = FALSE) else my_file
   colnames(big40)<-c("rsid","pheno","chr","pos", "a1","a2", "p","beta", "se","p-value(repro)",
                      "beta(repro)","se(repro)", "nominal" ,"start","end" )
   # Check that required columns are present
@@ -255,7 +288,7 @@ get_unique_loci <- function(big40, my_file, p_thresh = -log10(5e-8 / nrow(big40)
   overlapping_idx <- unique(queryHits(hits))
   
   # Extract non-overlapping loci — those at least 250 kb away from any BIG40 locus
-  unique_my_gr <- my_gr[overlapping_idx]
+  unique_my_gr <- my_gr[-overlapping_idx]
   
   # Convert GRanges to a data frame and calculate the center of each interval
   unique_df <- as.data.frame(unique_my_gr)
@@ -306,9 +339,8 @@ dd<-others$`DISEASE/TRAIT`%>%unique()
 write.table(dd,'dd_other_sen.txt',row.names = FALSE,quote = FALSE)
 ##
 plot_function_enrichment <- function(magma_file, output_file = "function_enrichment_plot.pdf") {
-  
-  magma_file<-'./FA_meta_5e-8/magma.gsa.out'
-  magma_functions <- fread(magma_file, data.table = FALSE, skip = 4)
+  magma_functions <- read_table_checked(magma_file, data.table = FALSE, skip = 4)
+  require_columns(magma_functions, c("P", "FULL_NAME"), "magma_functions")
   magma_functions$FDR <- -log10(p.adjust(magma_functions$P, method = 'bonferroni'))
   magma_functions <- magma_functions[order(magma_functions$FDR, decreasing = TRUE), ]
   magma_functions <- magma_functions[magma_functions$FDR > 1.3, ]
@@ -441,7 +473,6 @@ plot_celltype_enrichment <- function(cell_file, output_file = "celltype_enrichme
 view_FA_function<-plot_function_enrichment('./FA_meta_5e-8/magma.gsa.sets.genes.out',output_file ='4ch_functional_enrichment.pdf')
 plot_disease_enrichment('./heart_function.txt',output_file ='4ch_phenotype_enrichment.pdf' )
 plot_tissue_enrichment('./FA_meta_5e-8/magma_exp_bs_age_avg_log2RPKM.gsa.out',output_file ='4ch_tissue_enrichment.pdf' )
-plot_celltype_enrichment('./4ch_3D_GAN_heart_cell/magma_celltype_step1.txt',output_file ='4ch_cell_type_enrichment.pdf' )
 ###
 FA_MAGAMA_gene<-fread('./FA_meta_5e-8/magma.genes.out')
 FA_MAGAMA_gene_significant<-FA_MAGAMA_gene[which(FA_MAGAMA_gene$P<(0.05/19128)),]
@@ -464,7 +495,6 @@ write.csv(FA_geneset_analysi_significant,'./Supplementary/MAGMA_gene_set_sig_enr
 ##
 FA_developmental_stage<-fread('./FA_meta_5e-8/magma_exp_bs_dev_avg_log2RPKM.gsa.out',skip = 5)
 ###
-##
 # Define a function to plot a Manhattan plot from MAGMA gene-level output
 plot_magma_manhattan_with_labels <- function(magma_file, significance_level = 0.05, total_genes = 19128, output_name = "magma_manhattan") {
   # Load the MAGMA gene-level results
@@ -483,7 +513,6 @@ plot_magma_manhattan_with_labels <- function(magma_file, significance_level = 0.
   
   # Compute genome-wide significance threshold
   threshold <- significance_level / total_genes
-  jk
   # Prepare data for CMplot
   cmplot_data <- magma_result %>%
     mutate(
@@ -603,7 +632,6 @@ select_disease<-c('Dilated cardiomyopathy','Hypertrophic cardiomyopathy')
 for(i in all_disorder_name){
   #i=all_disorder_name[1]
   heart_dis_temp<-diorder_gene_selected[which(diorder_gene_selected$`Disease/Trait`==i),]
-  intersect()
   fisherVennPlot(heart_dis_temp$Gene,gene_2Ch,background_gene$V6,name1=i,name2='4Ch UDIP-heart',paste('./disoder_gene_overlap/4Ch/',i,'_2Ch_UDIP.png',sep = ""))
 }
 
@@ -623,8 +651,8 @@ t.test(UDIP_tf_count$Freq,other_rd$Freq)
 ggboxplot(combind_data,x='group',y='Freq',xlab = 'Group',ylab = 'Degreee')
 ####
 singlecell_heart_trn$`TF name`%>%unique()%>%length()
-)
-intersect(pos_4Ch$IndSigSNPs,res_4ch_gan$rsID)
+# Placeholder for optional cross-analysis overlap when both objects are loaded upstream:
+# intersect(pos_4Ch$IndSigSNPs, res_4ch_gan$rsID)
 # loci overlap ##
 T1_loci<-fread('./T1_T2_JAGWAS/T1_discovery_loci.csv')
 T2_loci<-fread('./T1_T2_JAGWAS/T2_discovery_loci.csv')

@@ -16,8 +16,6 @@ import os
 import pickle
 import sys
 
-import nibabel as nib
-import numpy as np
 import pandas as pd
 import torch
 from monai import transforms
@@ -28,9 +26,11 @@ from tqdm import tqdm
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 try:
     from model import engine_AE
+    from dataset import load_and_normalize_nifti
 except ImportError:
     # If running from parent directory
     from Model.model import engine_AE
+    from Model.dataset import load_and_normalize_nifti
 
 # Define default transforms using MONAI
 # These transforms add a channel dimension and convert the numpy array to a torch tensor.
@@ -75,27 +75,7 @@ class InferenceDataset(torch.utils.data.Dataset):
     def __getitem__(self, idx):
         img_path = self.image_paths[idx]
         
-        # Load image using nibabel
-        try:
-            img_obj = nib.load(img_path)
-            img_data = img_obj.get_fdata()
-        except Exception as e:
-            print(f"Error loading image {img_path}: {e}")
-            # Return a zero tensor if loading fails to avoid crashing the whole inference
-            # Ideally handled more gracefully, but for batch processing ensuring continuity is key.
-            # Here we let it crash or we could return None and filter in collate.
-            # Re-raising for visibility for now.
-            raise e
-
-        # Normalize image: (x - mean) / std
-        # We only consider non-zero pixels for statistics to ignore background.
-        mask = img_data != 0
-        if mask.any():
-            mean_val = img_data[mask].mean()
-            std_val = img_data[mask].std()
-            img_data = (img_data - mean_val) / (std_val + 1e-8) # Add epsilon to avoid divide by zero
-        else:
-            img_data[:] = 0
+        img_data, _ = load_and_normalize_nifti(img_path)
 
         # Apply transforms (Add channel, ToTensor)
         if self.transforms:

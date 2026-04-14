@@ -100,10 +100,26 @@ Prepare a CSV file containing the paths to your images under a column named `mri
 To train the AutoEncoder from scratch:
 
 ```bash
-python Model/Train.py
+python Model/Train.py \
+  --train_csv /path/to/train.csv \
+  --val_csv /path/to/val.csv \
+  --modality_col T1_unbiased_linear \
+  --output_dir ./runs/udip_fa \
+  --batch_size 9 \
+  --max_epochs 60 \
+  --gpus 0
 ```
 
-*Note: `Model/Train.py` is configured to use PyTorch Lightning. Adjust hyperparameters (learning rate, batch size, GPUs) directly in the file or by modifying the `LitAutoEncoder` class.*
+For multi-GPU training, pass multiple device ids, for example `--gpus 0 1 2 3`.
+To run on CPU, pass `--gpus` without any ids.
+
+**Common arguments:**
+- `--train_csv`: CSV file for training samples.
+- `--val_csv`: CSV file for validation samples.
+- `--modality_col`: Column containing image paths.
+- `--output_dir`: Directory for checkpoints and logs.
+- `--learning_rate`: Learning rate for the optimizer.
+- `--seed`: Random seed used by PyTorch Lightning.
 
 ### Inference
 
@@ -150,11 +166,27 @@ R script dedicated to post-GWAS statistical processing:
 - **Figure Generation**: Producing publication-ready plots (Manhattan plots, QQ plots).
 - **Meta-analysis**: Effect size calculations and statistical validation.
 
+Run as a standalone script from the repository root:
+
+```bash
+Rscript FA_all.R
+```
+
+The script now validates required packages and catches missing input files earlier, but it still expects the project-specific intermediate result files referenced in the analysis sections to exist.
+
 ### `FA_network_drug_analysis.R`
 Advanced network analysis for biological insights:
 - **Gene-Drug Interaction**: Constructing networks to identify potential drug targets.
 - **Therapeutic Targets**: Highlighting genes actionable by existing drugs.
 - **Mechanism of Action**: Pathway analysis to understand underlying biological mechanisms.
+
+Run the default workflow:
+
+```bash
+Rscript FA_network_drug_analysis.R
+```
+
+The network script exposes a single `run_fa_network_drug_analysis()` entry point and groups file paths in a default config object for easier review and reuse.
 
 ## 🔄 Reproducibility
 
@@ -162,8 +194,14 @@ Advanced network analysis for biological insights:
 The pretrained model can be accessed at this [Google Drive Link](https://drive.google.com/file/d/1wPO-DoaXAD-kil6FZCNOGuWg9cOX9eql/view?usp=drive_link).
 
 ### Random Seeds
-- Python: `np.random.seed(42)`
+- Training: `python Model/Train.py --seed 42 ...`
+- Python inference scripts use deterministic file ordering from the input CSV.
 - R: `set.seed(42)`
+
+### Practical Notes
+- Input MRI volumes are z-scored using non-zero voxels only; empty or zero-variance images are handled safely.
+- Training and inference both validate required input columns and file paths before running.
+- Checkpoints, TensorBoard logs, and CSV logs are written under the directory passed to `--output_dir`.
 
 ## 📚 Citation
 
