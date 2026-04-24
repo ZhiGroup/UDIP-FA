@@ -5,7 +5,8 @@
 [![R](https://img.shields.io/badge/R-4.0%2B-blue)](https://www.r-project.org/)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-This repository contains the complete analysis pipeline for the study **"Unveiling genetic architecture of white matter microstructure through unsupervised deep representation learning of fractional anisotropy maps"**.
+This repository contains the complete analysis pipeline for the study **"Genetic architecture of white matter microstructure captured by unsupervised deep representation learning of fractional anisotropy maps<img width="468" height="55" alt="image" src="https://github.com/user-attachments/assets/b9d93e6b-431e-4976-a9d4-c5e9f88d214e" />
+"**.
 
 ![Figure 1_page-0001](https://github.com/user-attachments/assets/c67188df-1ef7-4a19-b325-6761b5e063d3)
 
